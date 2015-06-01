@@ -4,24 +4,24 @@
 
 1. Install Python 3, if you don't have it. On Mac, homebrew is easiest:
 
-    ```
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew install python3
-    ```
+  ```
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  brew install python3
+  ```
 
 1. Clone the repository for the extraction code:
 
-    ```
-    git clone https://github.com/overview/osp.git
-    ```
+  ```
+  git clone https://github.com/overview/osp.git
+  ```
 
 1. Change down into the repo and create a virtual environment, and install dependencies:
 
-    ```
-    pyvenv env
-    . env/bin/activate
-    pip install -r requirements
-    ```
+  ```
+  pyvenv env
+  . env/bin/activate
+  pip install -r requirements
+  ```
 
 ## Create configuration files
 

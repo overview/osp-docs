@@ -10,9 +10,9 @@ In order to scrub out invalid citations from the interface (eg, junk MARC record
 
 1. In a tmux session, run:
 
-```
-osp corpus_csv term_counts counts.csv
-```
+  ```
+  osp corpus_csv term_counts counts.csv
+  ```
 
 1. This will take 5-6 hours. When it finishes, open the OSP configuration file (`/etc/osp/osp.yml`) and set the value of `osp.counts` to the path of the new `counts.csv` file.
 
@@ -22,10 +22,10 @@ To make the location filtering queries run quickly, we need to denormalize state
 
 1. Open up an IPython shell, and run:
 
-```
-from osp.citations.hlom.models.citation import HLOM_Citation
-HLOM_Citation.index_institutions()
-```
+  ```
+  from osp.citations.hlom.models.citation import HLOM_Citation
+  HLOM_Citation.index_institutions()
+  ```
 
 ## Prepare the cropped HLOM records table
 
@@ -33,16 +33,16 @@ Next, another performance trick - of the ~10M rows in the `hlom_record` table, o
 
 1. From an IPython shell, and run:
 
-```
-from osp.citations.hlom.models.record_cited import HLOM_Record_Cited
-HLOM_Record_Cited.copy_records()
-```
+  ```
+  from osp.citations.hlom.models.record_cited import HLOM_Record_Cited
+  HLOM_Record_Cited.copy_records()
+  ```
 
 1. Last, we need to denormalize unfiltered ranks and citation counts onto the copied rows - this makes it possible to do regular searches on the title and author fields directly out of Elasticsearch, instead of having to merge the results with ranking data from Postgres:
 
-```
-HLOM_Record_Cited.rank()
-```
+  ```
+  HLOM_Record_Cited.rank()
+  ```
 
 ## Index Elasticsearch
 
@@ -50,27 +50,27 @@ Last, we need to index documents, texts, and institutions in Elasticsearch.
 
 1. HLOM records:
 
-```
-from osp.citations.hlom.models.record_cited import HLOM_Record_Cited
-HLOM_Record_Cited.es_reset()
-HLOM_Record_Cited.es_insert()
-```
+  ```
+  from osp.citations.hlom.models.record_cited import HLOM_Record_Cited
+  HLOM_Record_Cited.es_reset()
+  HLOM_Record_Cited.es_insert()
+  ```
 
 1. Institutions:
 
-```
-from osp.institutions.models.institution import Institution
-Institution.es_reset()
-Institution.es_insert()
-```
+  ```
+  from osp.institutions.models.institution import Institution
+  Institution.es_reset()
+  Institution.es_insert()
+  ```
 
 1. Syllabi:
 
-```
-from osp.corpus.models.text import Document_Text
-Document_Text.es_reset()
-Document_Text.es_insert()
-```
+  ```
+  from osp.corpus.models.text import Document_Text
+  Document_Text.es_reset()
+  Document_Text.es_insert()
+  ```
 
 1. At this point, snapshot the extraction volume and terminate the instance.
 
@@ -82,9 +82,9 @@ Last but not least, we can deploy the actua UI.
 
 1. And, deploy the code with the regular sequence of playbooks:
 
-```
-ansible-playbook provision.yml
-./ec2/ec2.py --refresh-cache
-ansible-playbook configure.yml
-ansible-playbook deploy.yml
-```
+  ```
+  ansible-playbook provision.yml
+  ./ec2/ec2.py --refresh-cache
+  ansible-playbook configure.yml
+  ansible-playbook deploy.yml
+  ```
