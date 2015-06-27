@@ -15,6 +15,12 @@
   git clone https://github.com/overview/osp.git
   ```
 
+1. Install non-Python dependencies:
+
+  ```
+  brew install graphicsmagick boost boost-python
+  ```
+
 1. Change down into the repo and create a virtual environment, and install dependencies:
 
   ```
@@ -22,6 +28,19 @@
   . env/bin/activate
   pip install -r requirements
   ```
+
+  **Note**: On Debian, if the pip install step throws errors related to SciPy, install these packages with aptitude:
+
+  - gfortran
+  - libopenblas-dev
+  - liblapack-dev
+  - libxml2-dev
+  - libgraphicsmagick++1-dev
+  - libboost-python-dev
+
+  And, on Ubuntu, it should work to just do:
+
+  - `apt-get -y build-dep python3-scipy`
 
 ## Create configuration files
 
